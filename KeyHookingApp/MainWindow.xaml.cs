@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows;
 using System.Windows.Forms;
+using System.Windows.Threading;
 
 namespace KeyHookingApp
 {
@@ -18,20 +19,24 @@ namespace KeyHookingApp
         {
             var (ret, id) = await HotKeyManager.RegisterHotKey(Keys.A, KeyModifier.Alt);
             (ret, id) = await HotKeyManager.RegisterHotKey(Keys.S, KeyModifier.Alt);
+
             lastHotKeyId = id;
         }
 
         private void Window_Closed(object sender, EventArgs e)
         {
-            if (0 < lastHotKeyId)
+            while (0 < lastHotKeyId)
             {
-                HotKeyManager.UnregisterHotKey(lastHotKeyId);
+                HotKeyManager.UnregisterHotKey(lastHotKeyId--);
             }
         }
 
         public void HotKey_Pushed(object sender, HotKeyEventArgs e)
         {
-            Console.WriteLine(e.KeyModifier.ToString() + "+" + e.Key.ToString());
+            textBlockPressedKey.Dispatcher.BeginInvoke(DispatcherPriority.Normal, new Action(() =>
+            {
+                textBlockPressedKey.Text = e.KeyModifier.ToString() + "+" + e.Key.ToString();
+            }));
         }
     }
 }
