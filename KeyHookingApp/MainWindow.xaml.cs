@@ -1,28 +1,37 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+using System.Windows.Forms;
 
 namespace KeyHookingApp
 {
-    /// <summary>
-    /// MainWindow.xaml에 대한 상호 작용 논리
-    /// </summary>
     public partial class MainWindow : Window
     {
+        private int lastHotKeyId = 0;
+
         public MainWindow()
         {
             InitializeComponent();
+            HotKeyManager.HotKeyPressed += HotKey_Pushed;
+        }
+
+        private async void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            var (ret, id) = await HotKeyManager.RegisterHotKey(Keys.A, KeyModifier.Alt);
+            (ret, id) = await HotKeyManager.RegisterHotKey(Keys.S, KeyModifier.Alt);
+            lastHotKeyId = id;
+        }
+
+        private void Window_Closed(object sender, EventArgs e)
+        {
+            if (0 < lastHotKeyId)
+            {
+                HotKeyManager.UnregisterHotKey(lastHotKeyId);
+            }
+        }
+
+        public void HotKey_Pushed(object sender, HotKeyEventArgs e)
+        {
+            Console.WriteLine(e.KeyModifier.ToString() + "+" + e.Key.ToString());
         }
     }
 }
