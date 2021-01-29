@@ -14,7 +14,7 @@ This repository contains:
 
 ## Background
 
-ntdll, user32, gdi32에 대한 그림
+ntdll, user32, gdi32
 
 ![image](./Images/system_ntdll_user32.png)
 
