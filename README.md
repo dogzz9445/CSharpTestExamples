@@ -16,5 +16,5 @@ This repository contains:
 
 ntdll, user32, gdi32
 
-![image](./Images/system_ntdll_user32.png)
+<img src="./Images/system_ntdll_user32.png" width=60%>
 
