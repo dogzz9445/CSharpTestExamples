@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KeyHookingApp", "KeyHooking
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RampApp", "RampApp\RampApp.csproj", "{2CF13757-D724-45C2-A6D2-99738958E60E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestApp", "TestApp\TestApp.csproj", "{F5F7BC1F-ACBB-40AD-B7ED-F197CA50EAD5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{2CF13757-D724-45C2-A6D2-99738958E60E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2CF13757-D724-45C2-A6D2-99738958E60E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2CF13757-D724-45C2-A6D2-99738958E60E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F5F7BC1F-ACBB-40AD-B7ED-F197CA50EAD5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F5F7BC1F-ACBB-40AD-B7ED-F197CA50EAD5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F5F7BC1F-ACBB-40AD-B7ED-F197CA50EAD5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F5F7BC1F-ACBB-40AD-B7ED-F197CA50EAD5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
