@@ -9,6 +9,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RampApp", "RampApp\RampApp.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestApp", "TestApp\TestApp.csproj", "{F5F7BC1F-ACBB-40AD-B7ED-F197CA50EAD5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MaterialDesignBaseApp", "MaterialDesignBaseApp\MaterialDesignBaseApp.csproj", "{B21E8EF7-0B16-4EC8-82F4-442002E336F2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DAssist", "DAssist\DAssist.csproj", "{F75674B0-0A80-4611-BFF9-C4518C2BF51D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +31,14 @@ Global
 		{F5F7BC1F-ACBB-40AD-B7ED-F197CA50EAD5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F5F7BC1F-ACBB-40AD-B7ED-F197CA50EAD5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F5F7BC1F-ACBB-40AD-B7ED-F197CA50EAD5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B21E8EF7-0B16-4EC8-82F4-442002E336F2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B21E8EF7-0B16-4EC8-82F4-442002E336F2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B21E8EF7-0B16-4EC8-82F4-442002E336F2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B21E8EF7-0B16-4EC8-82F4-442002E336F2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F75674B0-0A80-4611-BFF9-C4518C2BF51D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F75674B0-0A80-4611-BFF9-C4518C2BF51D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F75674B0-0A80-4611-BFF9-C4518C2BF51D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F75674B0-0A80-4611-BFF9-C4518C2BF51D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
