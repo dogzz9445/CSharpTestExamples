@@ -53,18 +53,6 @@ namespace Ramp
             };
             bool bReturn = GetDeviceGammaRamp(Hdc, ref ramp);
             OldRamps = ramp;
-
-            if (true && false)
-            {
-
-            }
-
-            switch(bReturn)
-            {
-                case true && false:
-                    break;
-                    
-            }
         }
 
         public bool SetBrightness(double brightness)
