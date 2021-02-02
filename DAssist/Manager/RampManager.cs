@@ -4,10 +4,10 @@ using System.Windows.Forms;
 
 namespace DAssist.Manager
 {
-    public sealed class RampDisplay : IDisposable
+    public static class RampDisplay
     {
         [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Ansi)]
-        public struct Ramp
+        private struct Ramp
         {
             [MarshalAs(UnmanagedType.ByValArray, SizeConst = 256)]
             public UInt16[] Red;
@@ -16,18 +16,6 @@ namespace DAssist.Manager
             [MarshalAs(UnmanagedType.ByValArray, SizeConst = 256)]
             public UInt16[] Blue;
         }
-
-        private double _brightness = 1;
-        private double _gamma = 1;
-        private IntPtr _hdc;
-        private Screen _screen;
-        private Ramp _oldRamps;
-
-        public double Brightness { get => _brightness; set => _brightness = value; }
-        public double Gamma { get => _gamma; set => _gamma = value; }
-        public IntPtr Hdc { get => _hdc; set => _hdc = value; }
-        public Screen Screen { get => _screen; set => _screen = value; }
-        public Ramp OldRamps { get => _oldRamps; set => _oldRamps = value; }
 
         [DllImport("gdi32.dll")]
         private static extern IntPtr CreateDC(string lpszDriver, string lpszDevice, string lpszOutput, IntPtr lpInitData);
@@ -40,10 +28,15 @@ namespace DAssist.Manager
         [DllImport("gdi32.dll")]
         private static extern bool GetDeviceGammaRamp(IntPtr hDC, ref Ramp lpRamp);
 
-        public RampDisplay()
+        public static bool UpdateRamp(double gamma, double brightness, string screen = "")
         {
-            IntPtr screenDc = CreateDC(Screen.PrimaryScreen.DeviceName, "", "", IntPtr.Zero);
-            Hdc = CreateCompatibleDC(screenDc);
+            // 비어있을시 주모니터
+            if (screen == "")
+            {
+                screen = Screen.PrimaryScreen.DeviceName;
+            }
+            IntPtr screenDc = CreateDC(screen, "", "", IntPtr.Zero);
+            IntPtr hdc = CreateCompatibleDC(screenDc);
 
             Ramp ramp = new Ramp
             {
@@ -51,63 +44,17 @@ namespace DAssist.Manager
                 Green = new ushort[256],
                 Blue = new ushort[256]
             };
-            bool bReturn = GetDeviceGammaRamp(Hdc, ref ramp);
-            OldRamps = ramp;
 
-            if (true && false)
+            for (int iIndex = 0; iIndex < 256; iIndex++)
             {
-
+                ushort arrayValue = (ushort)Math.Min(65535, Math.Round(Math.Max(0, (Math.Pow(iIndex / 255.0f, 1 / gamma) * 65535 + 0.5) * brightness)));
+                ramp.Red[iIndex] = ramp.Green[iIndex] = ramp.Blue[iIndex] = arrayValue;
             }
 
-            switch (bReturn)
-            {
-                case true && false:
-                    break;
+            bool bReturn = SetDeviceGammaRamp(hdc, ref ramp);
 
-            }
-        }
-
-        public bool SetBrightness(double brightness)
-        {
-            Brightness = brightness / 50f;
-            return UpdateRamps();
-        }
-
-        public bool SetGamma(double gamma)
-        {
-            Gamma = gamma / 50f;
-            return UpdateRamps();
-        }
-
-        public bool UpdateRamps(bool bUseOldRamp = false)
-        {
-            Ramp ramp;
-            if (true == bUseOldRamp)
-            {
-                ramp = OldRamps;
-            }
-            else
-            {
-                ramp = new Ramp
-                {
-                    Red = new ushort[256],
-                    Green = new ushort[256],
-                    Blue = new ushort[256]
-                };
-
-                for (int iIndex = 0; iIndex < 256; iIndex++)
-                {
-                    ushort arrayValue = (ushort)Math.Min(65535, Math.Round(Math.Max(0, (Math.Pow(iIndex / 256.0f, 1 / Gamma) * 65535 + 0.5) * Brightness)));
-                    ramp.Red[iIndex] = ramp.Green[iIndex] = ramp.Blue[iIndex] = arrayValue;
-                }
-            }
-
-            return SetDeviceGammaRamp(Hdc, ref ramp);
-        }
-
-        public void Dispose()
-        {
-            DeleteDC(Hdc);
+            DeleteDC(hdc);
+            return bReturn;
         }
     }
 }

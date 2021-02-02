@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using System.Windows.Controls;
 
 namespace Ramp
 {
@@ -17,12 +18,12 @@ namespace Ramp
 
         private void SliderBrightness_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
-            displayRamp.SetBrightness(sliderBrightness.Value);
+            displayRamp.SetBrightness((sender as Slider).Value);
         }
 
         private void SliderGamma_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
-            displayRamp.SetGamma(sliderGamma.Value);
+            displayRamp.SetGamma((sender as Slider).Value);
         }
 
         private void ButtonApply_Clicked(object sender, RoutedEventArgs e)

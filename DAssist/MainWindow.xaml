@@ -15,7 +15,7 @@
         Background="{DynamicResource MaterialDesignPaper}"
         FontFamily="{DynamicResource MaterialDesignFont}"
         WindowStyle="None"
-        Title="MainWindow" Height="450" Width="800"
+        Title="MainWindow" Height="630" Width="1020"
         ResizeMode="NoResize">
     <Window.CommandBindings>
         <CommandBinding Command="Copy" Executed="OnCopy" />
