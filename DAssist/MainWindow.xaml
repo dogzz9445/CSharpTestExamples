@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DAssist"
         mc:Ignorable="d"
+        xmlns:tb="http://www.hardcodet.net/taskbar"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:converters="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:ui="clr-namespace:DAssist.UI"
@@ -17,8 +18,7 @@
         FontFamily="{DynamicResource MaterialDesignFont}"
         WindowStyle="None"
         Title="MainWindow" Height="630" Width="1020"
-        ResizeMode="NoResize"
-        Loaded="WindowLoaded">
+        ResizeMode="NoResize">
     <Window.CommandBindings>
         <CommandBinding Command="Copy" Executed="OnCopy" />
     </Window.CommandBindings>
@@ -29,10 +29,36 @@
         </ContextMenu>
     </Window.ContextMenu>
     <Grid>
+        <tb:TaskbarIcon 
+            x:Name="TrayTaskbarIcon"
+            Visibility="Visible" 
+            ToolTip="Tray Example" 
+            MenuActivation="LeftOrRightClick">
+            <tb:TaskbarIcon.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="정보">
+                        <MenuItem.Icon>
+                            <materialDesign:PackIcon Kind="InformationOutline" />
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <MenuItem Header="설정">
+                        <MenuItem.Icon>
+                            <materialDesign:PackIcon Kind="Cog" />
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <Separator />
+                    <MenuItem Header="종료">
+                        <MenuItem.Icon>
+                            <materialDesign:PackIcon Kind="CloseThick" />
+                        </MenuItem.Icon>
+                    </MenuItem>
+                </ContextMenu>
+            </tb:TaskbarIcon.ContextMenu>
+        </tb:TaskbarIcon>
         <TabControl
           Style="{StaticResource MaterialDesignNavigatilRailTabControl}"
           materialDesign:ColorZoneAssist.Mode="PrimaryMid">
-            <TabItem Style="{StaticResource MaterialDesignNavigationRailTabItem}">
+            <TabItem ToolTip="홈" Style="{StaticResource MaterialDesignNavigationRailTabItem}">
                 <TabItem.Header>
                     <materialDesign:PackIcon
                         Kind="Home"
@@ -52,7 +78,7 @@
                     </Run>
                 </TextBlock>
             </TabItem>
-            <TabItem Style="{StaticResource MaterialDesignNavigationRailTabItem}">
+            <TabItem ToolTip="디스플레이 설정" Style="{StaticResource MaterialDesignNavigationRailTabItem}">
                 <TabItem.Header>
                     <materialDesign:PackIcon
                     Kind="MonitorEdit"
@@ -61,7 +87,7 @@
                 </TabItem.Header>
                 <ui:DisplaySettings/>
             </TabItem>
-            <TabItem Style="{StaticResource MaterialDesignNavigationRailTabItem}">
+            <TabItem ToolTip="오디오 설정" Style="{StaticResource MaterialDesignNavigationRailTabItem}">
                 <TabItem.Header>
                     <materialDesign:PackIcon
                         Kind="Tree"
@@ -81,7 +107,7 @@
                     </Run>
                 </TextBlock>
             </TabItem>
-            <TabItem Style="{StaticResource MaterialDesignNavigationRailTabItem}">
+            <TabItem ToolTip="환경 설정" Style="{StaticResource MaterialDesignNavigationRailTabItem}">
                 <TabItem.Header>
                     <materialDesign:PackIcon
                         Kind="Cog"
@@ -104,26 +130,25 @@
         </TabControl>
         <Button
             Style="{StaticResource MaterialDesignFlatLightBgButton}"
-            ToolTip="MaterialDesignFlatLightButton"
+            ToolTip="트레이"
+            materialDesign:ButtonAssist.CornerRadius="10"
+            x:Name="ButtonTray"
             HorizontalAlignment="Left"
             VerticalAlignment="Bottom"
             Padding="0"
-            Width="70"
-            Height="70">
-            <StackPanel>
-                <TextBlock 
-                Style="{StaticResource MaterialDesignHeadline5TextBlock}" 
-                FontWeight="Bold"
-                Text="숨기기"
-                TextAlignment="Center"
-                HorizontalAlignment="Center"
-                VerticalAlignment="Center"/>
+            Margin="4 4 4 4"
+            Width="63"
+            Height="62">
+            <StackPanel
+            materialDesign:ColorZoneAssist.Mode="PrimaryMid">
                 <materialDesign:PackIcon
                     Kind="ArrowBottomRightThick"
-                    Width="40"
-                    Height="40"
+                    Width="60"
+                    Height="60"
                     HorizontalAlignment="Center"
-                    VerticalAlignment="Center"/>
+                    materialDesign:ColorZoneAssist.Foreground="White"
+                    materialDesign:ColorZoneAssist.Background="White"
+                    materialDesign:ColorZoneAssist.Mode="Dark"/>
             </StackPanel>
         </Button>
     </Grid>
