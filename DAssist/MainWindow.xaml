@@ -7,6 +7,7 @@
         mc:Ignorable="d"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:converters="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:ui="clr-namespace:DAssist.UI"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         TextElement.FontWeight="Regular"
         TextElement.FontSize="13"
@@ -16,12 +17,14 @@
         FontFamily="{DynamicResource MaterialDesignFont}"
         WindowStyle="None"
         Title="MainWindow" Height="630" Width="1020"
-        ResizeMode="NoResize">
+        ResizeMode="NoResize"
+        Loaded="WindowLoaded">
     <Window.CommandBindings>
         <CommandBinding Command="Copy" Executed="OnCopy" />
     </Window.CommandBindings>
     <Window.ContextMenu>
         <ContextMenu Style="{StaticResource MaterialDesignContextMenu}">
+            <MenuItem Header="트레이" x:Name="MainMenuItemTray"/>
             <MenuItem Header="종료" x:Name="MainMenuItemClose"/>
         </ContextMenu>
     </Window.ContextMenu>
@@ -29,8 +32,7 @@
         <TabControl
           Style="{StaticResource MaterialDesignNavigatilRailTabControl}"
           materialDesign:ColorZoneAssist.Mode="PrimaryMid">
-            <TabItem
-                Style="{StaticResource MaterialDesignNavigationRailTabItem}">
+            <TabItem Style="{StaticResource MaterialDesignNavigationRailTabItem}">
                 <TabItem.Header>
                     <materialDesign:PackIcon
                         Kind="Home"
@@ -50,72 +52,16 @@
                     </Run>
                 </TextBlock>
             </TabItem>
-            <TabItem
-                 Style="{StaticResource MaterialDesignNavigationRailTabItem}">
+            <TabItem Style="{StaticResource MaterialDesignNavigationRailTabItem}">
                 <TabItem.Header>
                     <materialDesign:PackIcon
                     Kind="MonitorEdit"
                     Width="32"
                     Height="32" />
                 </TabItem.Header>
-                <StackPanel Margin="8">
-                    <TextBlock TextWrapping="WrapWithOverflow" Style="{StaticResource MaterialDesignHeadline5TextBlock}" Margin="8 8 8 2">밝기 조절</TextBlock>
-                    <StackPanel>
-                        <materialDesign:Card Width="auto" Margin="8 8 8 8" Height="auto">
-                            <StackPanel Orientation="Horizontal">
-                                <StackPanel Orientation="Horizontal" Margin="0 0 8 0">
-                                    <materialDesign:ColorZone
-                                          Mode="Dark">
-                                        <StackPanel
-                                            Orientation="Horizontal"
-                                            Margin="2"
-                                            Height="auto">
-                                            <RadioButton
-                                              Style="{StaticResource MaterialDesignTabRadioButton}"
-                                              Margin="2"
-                                              IsChecked="True" Height="auto">
-                                                <StackPanel Orientation="Vertical" HorizontalAlignment="Center">
-                                                    <materialDesign:PackIcon Kind="Monitor" Width="24" Height="24" HorizontalAlignment="Center"/>
-                                                    <TextBlock TextWrapping="Wrap" Style="{StaticResource MaterialDesignTextBlock}">주모니터</TextBlock>
-                                                </StackPanel>
-                                            </RadioButton>
-                                            <RadioButton
-                                              Style="{StaticResource MaterialDesignTabRadioButton}"
-                                              Margin="2"
-                                              IsChecked="False"
-                                              Content="SECOND" />
-                                            <RadioButton
-                                              Style="{StaticResource MaterialDesignTabRadioButton}"
-                                              Margin="2"
-                                              IsChecked="False"
-                                              Content="THIRD" />
-                                        </StackPanel>
-                                    </materialDesign:ColorZone>
-                                </StackPanel>
-                                <Grid VerticalAlignment="Center">
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="auto"/>
-                                        <RowDefinition Height="auto"/>
-                                    </Grid.RowDefinitions>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="auto"/>
-                                        <ColumnDefinition Width="35"/>
-                                        <ColumnDefinition Width="auto"/>
-                                    </Grid.ColumnDefinitions>
-                                    <Label Grid.Row="0" Grid.Column="0" FontWeight="Bold" Content="밝기" Height="auto"/>
-                                    <TextBlock Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center" TextWrapping="Wrap" Text="{Binding ElementName=sliderBrightness, Path=Value}" Width="40"/>
-                                    <Slider Grid.Row="0" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" x:Name="sliderBrightness" Width="300" Minimum="5" Maximum="100" SmallChange="1" LargeChange="10" TickFrequency="1" IsSnapToTickEnabled="True" Value="50"/>
-                                    <Label Grid.Row="1" Grid.Column="0" FontWeight="Bold" Content="감마" Height="auto"/>
-                                    <TextBlock Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center" TextWrapping="Wrap" Text="{Binding ElementName=sliderGamma, Path=Value}" Width="40"/>
-                                    <Slider Grid.Row="1" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" x:Name="sliderGamma" Width="300" Minimum="5" Maximum="100" SmallChange="1" LargeChange="10" TickFrequency="1" IsSnapToTickEnabled="True" Value="50"/>
-                                </Grid>
-                            </StackPanel>
-                        </materialDesign:Card>
-                    </StackPanel>
-                </StackPanel>
+                <ui:DisplaySettings/>
             </TabItem>
-            <TabItem
-                Style="{StaticResource MaterialDesignNavigationRailTabItem}">
+            <TabItem Style="{StaticResource MaterialDesignNavigationRailTabItem}">
                 <TabItem.Header>
                     <materialDesign:PackIcon
                         Kind="Tree"
@@ -135,8 +81,7 @@
                     </Run>
                 </TextBlock>
             </TabItem>
-            <TabItem
-                Style="{StaticResource MaterialDesignNavigationRailTabItem}">
+            <TabItem Style="{StaticResource MaterialDesignNavigationRailTabItem}">
                 <TabItem.Header>
                     <materialDesign:PackIcon
                         Kind="Cog"
@@ -157,5 +102,29 @@
                 </TextBlock>
             </TabItem>
         </TabControl>
+        <Button
+            Style="{StaticResource MaterialDesignFlatLightBgButton}"
+            ToolTip="MaterialDesignFlatLightButton"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Bottom"
+            Padding="0"
+            Width="70"
+            Height="70">
+            <StackPanel>
+                <TextBlock 
+                Style="{StaticResource MaterialDesignHeadline5TextBlock}" 
+                FontWeight="Bold"
+                Text="숨기기"
+                TextAlignment="Center"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"/>
+                <materialDesign:PackIcon
+                    Kind="ArrowBottomRightThick"
+                    Width="40"
+                    Height="40"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"/>
+            </StackPanel>
+        </Button>
     </Grid>
 </Window>

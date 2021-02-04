@@ -31,6 +31,15 @@ namespace DAssist
             this.MainMenuItemClose.Click += new RoutedEventHandler((sender, e) => this.Close());
         }
 
+        private void WindowLoaded(object sender, RoutedEventArgs e)
+        {
+            var desktopWorkingArea = System.Windows.SystemParameters.WorkArea;
+            this.Left = desktopWorkingArea.Right - this.Width;
+            this.Top = desktopWorkingArea.Bottom - this.Height;
+
+            ContextMenu menu = new ContextMenu();
+        }
+
         private void OnCopy(object sender, ExecutedRoutedEventArgs e)
         {
             if (e.Parameter is string stringValue)
