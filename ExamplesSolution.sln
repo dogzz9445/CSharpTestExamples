@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MaterialDesignBaseApp", "Ma
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DAssist", "DAssist\DAssist.csproj", "{F75674B0-0A80-4611-BFF9-C4518C2BF51D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TrayApp", "TrayApp\TrayApp.csproj", "{FD1B7201-8DF2-49CD-B5FD-931D68CB47F6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{F75674B0-0A80-4611-BFF9-C4518C2BF51D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F75674B0-0A80-4611-BFF9-C4518C2BF51D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F75674B0-0A80-4611-BFF9-C4518C2BF51D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FD1B7201-8DF2-49CD-B5FD-931D68CB47F6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FD1B7201-8DF2-49CD-B5FD-931D68CB47F6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FD1B7201-8DF2-49CD-B5FD-931D68CB47F6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FD1B7201-8DF2-49CD-B5FD-931D68CB47F6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
