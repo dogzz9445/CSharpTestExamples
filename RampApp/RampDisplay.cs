@@ -44,7 +44,7 @@ namespace Ramp
                 Green = new ushort[256],
                 Blue = new ushort[256]
             };
-
+            
             for (int iIndex = 0; iIndex < 256; iIndex++)
             {
                 ushort arrayValue = (ushort)Math.Min(65535, Math.Round(Math.Max(0, (Math.Pow(iIndex / 255.0f, 1 / gamma) * 65535 + 0.5) * brightness)));
