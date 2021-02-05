@@ -5,8 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AudioControlApp"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="184.551" Width="512.641">
     <Grid>
-        
+        <ComboBox x:Name="ComboAudios" HorizontalAlignment="Left" Height="22" Margin="35,21,0,0" VerticalAlignment="Top" Width="312"/>
+        <RadioButton Content="RadioButton" HorizontalAlignment="Left" Margin="365,28,-63,0" VerticalAlignment="Top"/>
     </Grid>
 </Window>
