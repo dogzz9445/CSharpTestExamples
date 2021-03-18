@@ -91,8 +91,7 @@ namespace DAssist.Domain
 
         public RampViewModel()
         {
-            Displays = GenerateDisplaySettings();
-            Displays.ItemPropertyChanged += RaisePropertyChanged;
+            RefreshScreens();
         }
 
         public int SelectedIndex
@@ -127,6 +126,17 @@ namespace DAssist.Domain
             }
         }
 
+        public void RefreshScreens()
+        {
+            if (Displays != null)
+            {
+                Displays.ItemPropertyChanged -= RaisePropertyChanged;
+                Displays.Clear();
+            }
+            Displays = GenerateDisplaySettings();
+            Displays.ItemPropertyChanged += RaisePropertyChanged;
+        }
+
         private ObservableCollectionEx<Display> GenerateDisplaySettings()
         {
             ObservableCollectionEx<Display> displays = new ObservableCollectionEx<Display>();
@@ -140,7 +150,7 @@ namespace DAssist.Domain
                 Gamma = 1.0f,
                 Brightness = 50.0f
             });
-
+            
             foreach (Screen screen in Screen.AllScreens)
             {
                 if (screen.Primary == false)

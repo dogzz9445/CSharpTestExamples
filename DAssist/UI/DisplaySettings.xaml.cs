@@ -23,19 +23,40 @@ namespace DAssist.UI
     /// </summary>
     public partial class DisplaySettings : UserControl
     {
+        private RampViewModel rampViewModel;
+
         public DisplaySettings()
         {
             InitializeComponent();
 
-            RampViewModel rampViewModel = new RampViewModel();
+            rampViewModel = new RampViewModel();
             rampViewModel.PropertyChanged += OnViewModelPropertyChagned;
             DataContext = rampViewModel;
+
+            DisplayRefreshButton.Click += (s, e) => RefreshDisplays();
         }
 
+        /// <summary>
+        /// 디스플레이 정보 새로고침
+        /// </summary>
+        public void RefreshDisplays()
+        {
+            rampViewModel.RefreshScreens();
+        }
+
+        /// <summary>
+        /// RampViewModel 내부 데이터 변경 시 호출
+        /// 선택된 디스플레이 밝기, 감마 조절
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void OnViewModelPropertyChagned(object sender, PropertyChangedEventArgs e)
         {
             Display display = DisplayItemsListBox.SelectedItem as Display;
-            RampDisplay.UpdateRamp(display.Gamma, display.Brightness / 50.0f, display.DeviceName);
+            if (display != null)
+            { 
+                RampDisplay.UpdateRamp(display.Gamma, display.Brightness / 50.0f, display.DeviceName);
+            }
         }
     }
 }

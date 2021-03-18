@@ -26,6 +26,7 @@ namespace AudioControlApp
         {
             InitializeComponent();
 
+
             this.Loaded += (sender, args) =>
             {
                 foreach (var process in Process.GetProcesses())

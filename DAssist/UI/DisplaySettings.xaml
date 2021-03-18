@@ -16,16 +16,34 @@
              mc:Ignorable="d" 
              d:DesignHeight="630" d:DesignWidth="960">
     <StackPanel Margin="8">
-        <TextBlock 
-            TextWrapping="WrapWithOverflow" 
-            Style="{StaticResource MaterialDesignHeadline5TextBlock}" 
-            Margin="8 8 8 2" Text="밝기 조절"/>
+        <DockPanel VerticalAlignment="Bottom" Margin="8 0 8 0">
+            <TextBlock TextWrapping="WrapWithOverflow" 
+                       TextAlignment="Center" 
+                       VerticalAlignment="Bottom"
+                       Style="{StaticResource MaterialDesignHeadline5TextBlock}" 
+                       FontWeight="Bold" 
+                       Text="밝기 조절"/>
+            <Button Margin="0 0 0 0"
+                    Padding="5 5 5 5"
+                    Width="45"
+                    Height="45"
+                    x:Name="DisplayRefreshButton"
+                    HorizontalAlignment="Right"
+                    Style="{StaticResource MaterialDesignFloatingActionButton}">
+                <StackPanel VerticalAlignment="Center"
+                            HorizontalAlignment="Center">
+                    <materialDesign:PackIcon Kind="RefreshCircle" 
+                                             Width="32" 
+                                             Height="32" 
+                                             HorizontalAlignment="Center"/>
+                </StackPanel>
+            </Button>
+        </DockPanel>
         <StackPanel>
             <materialDesign:Card Width="auto" Margin="8 8 8 8" Height="auto">
-                <StackPanel Orientation="Horizontal">
+                <DockPanel>
                     <StackPanel Orientation="Horizontal" Margin="0 0 8 0">
-                        <materialDesign:ColorZone
-                                          Mode="Dark" Width="530">
+                        <materialDesign:ColorZone Mode="Dark" Width="380">
                             <ListBox
                                 Style="{StaticResource MaterialDesignListBox}"
                                 x:Name="DisplayItemsListBox"
@@ -59,65 +77,116 @@
                             </ListBox>
                         </materialDesign:ColorZone>
                     </StackPanel>
-                    <Grid VerticalAlignment="Center">
+                    <StackPanel VerticalAlignment="Center" 
+                                HorizontalAlignment="Center">
+                        <Grid VerticalAlignment="Center">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="auto"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="auto"/>
+                                <ColumnDefinition Width="35"/>
+                                <ColumnDefinition Width="auto"/>
+                            </Grid.ColumnDefinitions>
+                            <Label Grid.Row="0" Grid.Column="0" FontWeight="Bold" Content="밝기" Height="auto"/>
+                            <TextBlock Grid.Row="0" 
+                                       Grid.Column="1" 
+                                       HorizontalAlignment="Center" 
+                                       VerticalAlignment="Center"
+                                       TextAlignment="Center" 
+                                       TextWrapping="Wrap" 
+                                       Text="{Binding ElementName=DisplayItemsListBox, Path=SelectedItem.Brightness}"
+                                       Width="40"/>
+                            <Slider Grid.Row="0" 
+                                    Grid.Column="2" 
+                                    HorizontalAlignment="Center" 
+                                    VerticalAlignment="Center" 
+                                    Width="300" 
+                                    Minimum="0" 
+                                Maximum="100" 
+                                SmallChange="1" 
+                                LargeChange="1" 
+                                TickFrequency="1" 
+                                IsSnapToTickEnabled="True" 
+                                Value="{Binding ElementName=DisplayItemsListBox, Path=SelectedItem.Brightness}"/>
+                            <Label Grid.Row="1" Grid.Column="0" FontWeight="Bold" Content="감마" Height="auto"/>
+                            <TextBlock 
+                                Grid.Row="1" 
+                                Grid.Column="1" 
+                                HorizontalAlignment="Center" 
+                                VerticalAlignment="Center" 
+                                TextAlignment="Center" 
+                                TextWrapping="Wrap" 
+                                Text="{Binding ElementName=DisplayItemsListBox, Path=SelectedItem.Gamma, UpdateSourceTrigger=PropertyChanged}" 
+                                Width="40"/>
+                            <Slider 
+                                Grid.Row="1"
+                                Grid.Column="2" 
+                                HorizontalAlignment="Center" 
+                                VerticalAlignment="Center" 
+                                Width="300" 
+                                Minimum="0.05" 
+                                Maximum="2.0" 
+                                SmallChange="0.01" 
+                                LargeChange="0.01" 
+                                TickFrequency="0.01" 
+                                IsSnapToTickEnabled="True" 
+                                Value="{Binding ElementName=DisplayItemsListBox, Path=SelectedItem.Gamma, UpdateSourceTrigger=PropertyChanged}"/>
+                        </Grid>
+                    </StackPanel>
+                </DockPanel>
+            </materialDesign:Card>
+        </StackPanel>
+
+        <DockPanel Margin="8 16 8 0" VerticalAlignment="Bottom">
+            <TextBlock TextWrapping="WrapWithOverflow" 
+                       TextAlignment="Left" 
+                       VerticalAlignment="Bottom"
+                       Style="{StaticResource MaterialDesignHeadline5TextBlock}" 
+                       FontWeight="Bold" 
+                       Text="핫키 설정"/>
+        </DockPanel>
+        <StackPanel>
+            <materialDesign:Card Width="auto" Margin="8 8 8 8" Height="auto">
+                <DockPanel>
+                    <Grid>
                         <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"/>
                             <RowDefinition Height="auto"/>
                             <RowDefinition Height="auto"/>
                         </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="auto"/>
-                            <ColumnDefinition Width="35"/>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="auto"/>
                             <ColumnDefinition Width="auto"/>
                         </Grid.ColumnDefinitions>
-                        <Label Grid.Row="0" Grid.Column="0" FontWeight="Bold" Content="밝기" Height="auto"/>
-                        <TextBlock 
-                            Grid.Row="0" 
-                            Grid.Column="1" 
-                            HorizontalAlignment="Center" 
-                            VerticalAlignment="Center" 
-                            TextAlignment="Center" 
-                            TextWrapping="Wrap" 
-                            Text="{Binding ElementName=DisplayItemsListBox, Path=SelectedItem.Brightness}" 
-                            Width="40"/>
-                        <Slider 
-                            Grid.Row="0" 
-                            Grid.Column="2" 
-                            HorizontalAlignment="Center" 
-                            VerticalAlignment="Center" 
-                            Width="300" 
-                            Minimum="0" 
-                            Maximum="100" 
-                            SmallChange="1" 
-                            LargeChange="1" 
-                            TickFrequency="1" 
-                            IsSnapToTickEnabled="True" 
-                            Value="{Binding ElementName=DisplayItemsListBox, Path=SelectedItem.Brightness}"/>
-                        <Label Grid.Row="1" Grid.Column="0" FontWeight="Bold" Content="감마" Height="auto"/>
-                        <TextBlock 
-                            Grid.Row="1" 
-                            Grid.Column="1" 
-                            HorizontalAlignment="Center" 
-                            VerticalAlignment="Center" 
-                            TextAlignment="Center" 
-                            TextWrapping="Wrap" 
-                            Text="{Binding ElementName=DisplayItemsListBox, Path=SelectedItem.Gamma, UpdateSourceTrigger=PropertyChanged}" 
-                            Width="40"/>
-                        <Slider 
-                            Grid.Row="1"
-                            Grid.Column="2" 
-                            HorizontalAlignment="Center" 
-                            VerticalAlignment="Center" 
-                            Width="300" 
-                            Minimum="0.05" 
-                            Maximum="2.0" 
-                            SmallChange="0.01" 
-                            LargeChange="0.01" 
-                            TickFrequency="0.01" 
-                            IsSnapToTickEnabled="True" 
-                            Value="{Binding ElementName=DisplayItemsListBox, Path=SelectedItem.Gamma, UpdateSourceTrigger=PropertyChanged}"/>
+                        <Button Command="{x:Static materialDesign:DialogHost.OpenDialogCommand}"
+                                Width="128" 
+                                Content="변경" IsEnabled="True">
+                            <Button.CommandParameter>
+                                <StackPanel Margin="16">
+                                    <Button Style="{StaticResource MaterialDesignFlatButton}"
+                                            Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}"
+                                            CommandParameter="Sample2Cancel"
+                                            HorizontalAlignment="Center"
+                                            Content="변경"/>
+                                    <Button Style="{StaticResource MaterialDesignFlatButton}"
+                                            IsCancel="True"
+                                            Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}"
+                                            CommandParameter="Sample2Cancel"
+                                            HorizontalAlignment="Center"
+                                            Content="취소"/>
+                                </StackPanel>
+                            </Button.CommandParameter>
+                        </Button>
                     </Grid>
-                </StackPanel>
+                </DockPanel>
             </materialDesign:Card>
         </StackPanel>
+        
+
     </StackPanel>
 </UserControl>
