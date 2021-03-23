@@ -44,12 +44,11 @@
                 <DockPanel>
                     <StackPanel Orientation="Horizontal" Margin="0 0 8 0">
                         <materialDesign:ColorZone Mode="Dark" Width="380">
-                            <ListBox
-                                Style="{StaticResource MaterialDesignListBox}"
-                                x:Name="DisplayItemsListBox"
-                                SelectedIndex="{Binding SelectedIndex}"
-                                SelectedItem="{Binding SelectedItem}"
-                                ItemsSource="{Binding Displays}">
+                            <ListBox Style="{StaticResource MaterialDesignListBox}"
+                                     x:Name="DisplayItemsListBox"
+                                     SelectedIndex="{Binding SelectedIndex, IsAsync=True}"
+                                     SelectedItem="{Binding SelectedItem, IsAsync=True}"
+                                     ItemsSource="{Binding Displays, IsAsync=True}">
                                 <ListBox.Resources>
                                     <Style TargetType="ScrollBar" BasedOn="{StaticResource MaterialDesignScrollBarMinimal}"/>
                                 </ListBox.Resources>
@@ -61,12 +60,12 @@
                                 <ListBox.ItemTemplate>
                                     <DataTemplate DataType="domain:Display">
                                         <RadioButton Padding="0"
-                                            Margin="0 0 0 0"
-                                            GroupName="radioDisplayList"
-                                            Style="{StaticResource MaterialDesignTabRadioButton}"
-                                            materialDesign:RippleAssist.Feedback="Transparent"
-                                            IsChecked="{Binding IsSelected, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ListBoxItem}}}" 
-                                            Height="auto">
+                                                     Margin="0 0 0 0"
+                                                     GroupName="radioDisplayList"
+                                                     Style="{StaticResource MaterialDesignTabRadioButton}"
+                                                     materialDesign:RippleAssist.Feedback="Transparent"
+                                                     IsChecked="{Binding IsSelected, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ListBoxItem}}}" 
+                                                     Height="auto">
                                             <StackPanel Orientation="Vertical" HorizontalAlignment="Center">
                                                 <materialDesign:PackIcon Kind="Monitor" Width="32" Height="32" HorizontalAlignment="Center"/>
                                                 <TextBlock TextWrapping="Wrap" Style="{StaticResource MaterialDesignTextBlock}" Text="{Binding Name}"/>
@@ -150,38 +149,125 @@
         <StackPanel>
             <materialDesign:Card Width="auto" Margin="8 8 8 8" Height="auto">
                 <DockPanel>
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="auto"/>
-                            <RowDefinition Height="auto"/>
-                            <RowDefinition Height="auto"/>
-                        </Grid.RowDefinitions>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="auto"/>
-                            <ColumnDefinition Width="auto"/>
-                            <ColumnDefinition Width="auto"/>
-                            <ColumnDefinition Width="auto"/>
-                            <ColumnDefinition Width="auto"/>
-                        </Grid.ColumnDefinitions>
-                        <Button Command="{x:Static materialDesign:DialogHost.OpenDialogCommand}"
-                                Width="128" 
-                                Content="변경" IsEnabled="True">
+                    <Grid Margin="8" x:Name="MuteHotKeyGrid" VerticalAlignment="Center">
+                        
+
+                        <materialDesign:DialogHost Grid.Column="3"
+                                                   DialogTheme="Inherit"
+                                                   HorizontalAlignment="Center"
+                                                   VerticalAlignment="Center">
+                            <materialDesign:DialogHost.DialogContent>
+                                <StackPanel Margin="16">
+                                    <TextBox ></TextBox>
+                                    <TextBox ></TextBox>
+                                    <TextBox ></TextBox>
+                                    <TextBox Margin="0 8 0 0"
+                                             HorizontalAlignment="Stretch"
+                                             x:Name="FruitTextBox" />
+                                    <StackPanel Orientation="Horizontal"
+                                                HorizontalAlignment="Right">
+                                        <Button Style="{StaticResource MaterialDesignFlatButton}"
+                                                IsDefault="True"
+                                                Margin="0 8 8 0"
+                                                Command="materialDesign:DialogHost.CloseDialogCommand">
+                                            <Button.CommandParameter>
+                                                <system:Boolean xmlns:system="clr-namespace:System;assembly=mscorlib">
+                                                    True
+                                                </system:Boolean>
+                                            </Button.CommandParameter>
+                                            ACCEPT
+                                        </Button>
+                                        <Button Style="{StaticResource MaterialDesignFlatButton}"
+                                                IsCancel="True"
+                                                Margin="0 8 8 0"
+                                                Command="materialDesign:DialogHost.CloseDialogCommand">
+                                            <Button.CommandParameter>
+                                                <system:Boolean xmlns:system="clr-namespace:System;assembly=mscorlib">
+                                                    False
+                                                </system:Boolean>
+                                            </Button.CommandParameter>
+                                            CANCEL
+                                        </Button>
+                                    </StackPanel>
+                                </StackPanel>
+                            </materialDesign:DialogHost.DialogContent>
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*" />
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="auto"/>
+                                    <ColumnDefinition Width="auto"/>
+                                    <ColumnDefinition Width="auto"/>
+                                    <ColumnDefinition Width="auto"/>
+                                    <ColumnDefinition Width="auto"/>
+                                </Grid.ColumnDefinitions>
+
+                                <Border BorderThickness="1"
+                                        BorderBrush="{DynamicResource PrimaryHueMidBrush}"
+                                        ClipToBounds="True"
+                                        Grid.Column="0" >
+                                    <TextBlock HorizontalAlignment="Center"
+                                        VerticalAlignment="Center"
+                                        x:Name="FirstKeyModifierTextBlock" 
+                                        TextAlignment="Center"
+                                        Text="{Binding PropertyHotKey.FirstKeyModifier, Mode=TwoWay}"/>
+                                </Border>
+                                <Border BorderThickness="1"
+                                        BorderBrush="{DynamicResource PrimaryHueMidBrush}"
+                                        ClipToBounds="True"
+                                        Grid.Column="1">
+                                    <TextBlock HorizontalAlignment="Center"
+                                               VerticalAlignment="Center"
+                                               x:Name="SecondKeyModifierTextBlock" 
+                                               TextAlignment="Center"
+                                               Text="{Binding PropertyHotKey.SecondKeyModifier, Mode=TwoWay}"/>
+                                </Border>
+                                <Border BorderThickness="1"
+                                        BorderBrush="{DynamicResource PrimaryHueMidBrush}"
+                                        ClipToBounds="True"
+                                        Grid.Column="2">
+                                    <TextBlock HorizontalAlignment="Center"
+                                               VerticalAlignment="Center"
+                                               x:Name="ActionKeyTextBlock" 
+                                               TextAlignment="Center"
+                                               Text="{Binding PropertyHotKey.ActionKey, Mode=TwoWay}"/>
+                                </Border>
+
+
+                                <materialDesign:ColorZone Mode="PrimaryMid"
+                                                          Grid.Row="1"
+                                                          Effect="{DynamicResource MaterialDesignShadowDepth5}">
+                                    <TextBlock Margin="16">
+                                        Fruit Bowl
+                                    </TextBlock>
+                                </materialDesign:ColorZone>
+                                <Button Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}"
+                                        Command="{x:Static materialDesign:DialogHost.OpenDialogCommand}"
+                                        VerticalAlignment="Bottom"
+                                        HorizontalAlignment="Right"
+                                        Grid.Row="0"
+                                        Margin="0 0 28 -20">
+                                </Button>
+                            </Grid>
+                        </materialDesign:DialogHost>
+                        <!--<Button Command="{x:Static materialDesign:DialogHost.OpenDialogCommand}"
+                                Width="128" >
                             <Button.CommandParameter>
                                 <StackPanel Margin="16">
                                     <Button Style="{StaticResource MaterialDesignFlatButton}"
                                             Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}"
-                                            CommandParameter="Sample2Cancel"
                                             HorizontalAlignment="Center"
                                             Content="변경"/>
                                     <Button Style="{StaticResource MaterialDesignFlatButton}"
                                             IsCancel="True"
                                             Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}"
-                                            CommandParameter="Sample2Cancel"
                                             HorizontalAlignment="Center"
                                             Content="취소"/>
                                 </StackPanel>
                             </Button.CommandParameter>
-                        </Button>
+                        </Button>-->
                     </Grid>
                 </DockPanel>
             </materialDesign:Card>

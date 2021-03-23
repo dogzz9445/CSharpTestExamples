@@ -4,7 +4,7 @@ using System.Windows.Forms;
 
 namespace DAssist.Manager
 {
-    public static class RampDisplay
+    public static class RampManager
     {
         [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Ansi)]
         private struct Ramp

@@ -1,5 +1,6 @@
 ﻿using DAssist.Domain;
 using DAssist.Manager;
+using DAssist.Model;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -23,40 +24,26 @@ namespace DAssist.UI
     /// </summary>
     public partial class DisplaySettings : UserControl
     {
-        private RampViewModel rampViewModel;
+        private RampViewModel DisplayRampViewModel;
+        private HotKeyViewModel MuteHotKeyViewModel;
+
+        //public event EventHandler<HotKeyEventArgs> HotKeyPressed;
 
         public DisplaySettings()
         {
             InitializeComponent();
 
-            rampViewModel = new RampViewModel();
-            rampViewModel.PropertyChanged += OnViewModelPropertyChagned;
-            DataContext = rampViewModel;
+            // Ramp 뷰모델
+            DisplayRampViewModel = new RampViewModel();
+            DisplayItemsListBox.DataContext = DisplayRampViewModel;
 
-            DisplayRefreshButton.Click += (s, e) => RefreshDisplays();
-        }
+            // HotKey 뷰모델
+            MuteHotKeyViewModel = new HotKeyViewModel();
+            MuteHotKeyGrid.DataContext = MuteHotKeyViewModel;
 
-        /// <summary>
-        /// 디스플레이 정보 새로고침
-        /// </summary>
-        public void RefreshDisplays()
-        {
-            rampViewModel.RefreshScreens();
-        }
+            // Button Event
+            DisplayRefreshButton.Click += (s, e) => DisplayRampViewModel.RefreshScreens();
 
-        /// <summary>
-        /// RampViewModel 내부 데이터 변경 시 호출
-        /// 선택된 디스플레이 밝기, 감마 조절
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void OnViewModelPropertyChagned(object sender, PropertyChangedEventArgs e)
-        {
-            Display display = DisplayItemsListBox.SelectedItem as Display;
-            if (display != null)
-            { 
-                RampDisplay.UpdateRamp(display.Gamma, display.Brightness / 50.0f, display.DeviceName);
-            }
         }
     }
 }

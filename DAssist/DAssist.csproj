@@ -56,7 +56,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Domain\HotKeyViewModel.cs" />
     <Compile Include="Manager\VolumeMixer.cs" />
+    <Compile Include="Model\Display.cs" />
     <Compile Include="UI\DisplaySettings.xaml.cs">
       <DependentUpon>DisplaySettings.xaml</DependentUpon>
     </Compile>
