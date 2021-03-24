@@ -1,0 +1,114 @@
+﻿<UserControl x:Class="DAssist.UI.Common.HotKeyDialogHost"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:DAssist.UI.Common"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             mc:Ignorable="d">
+    <materialDesign:DialogHost Grid.Column="3"
+                               DialogTheme="Inherit"
+                               HorizontalAlignment="Center"
+                               VerticalAlignment="Center">
+        
+        <materialDesign:ColorZone>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto"
+                                      MinWidth="80" />
+                    <ColumnDefinition Width="auto"
+                                      MinWidth="80" />
+                    <ColumnDefinition Width="auto"
+                                      MinWidth="80" />
+                    <ColumnDefinition Width="auto" />
+                </Grid.ColumnDefinitions>
+
+                <Border BorderThickness="1.5"
+                        BorderBrush="{DynamicResource PrimaryHueMidBrush}"
+                        ClipToBounds="True"
+                        Grid.Column="0">
+                    <TextBlock HorizontalAlignment="Center"
+                               VerticalAlignment="Center"
+                               x:Name="FirstKeyModifierTextBlock"
+                               TextAlignment="Center"
+                               IsEnabled="False"
+                               Margin="5 0 5 0"
+                               Text="{Binding PropertyHotKey.FirstKeyModifier, Mode=TwoWay}" />
+                </Border>
+                <Border BorderThickness="1.5"
+                        BorderBrush="{DynamicResource PrimaryHueMidBrush}"
+                        ClipToBounds="True"
+                        Grid.Column="1">
+                    <TextBlock HorizontalAlignment="Center"
+                               VerticalAlignment="Center"
+                               x:Name="SecondKeyModifierTextBlock"
+                               TextAlignment="Center"
+                               IsEnabled="False"
+                               Margin="5 0 5 0"
+                               Text="{Binding PropertyHotKey.SecondKeyModifier, Mode=TwoWay}" />
+                </Border>
+                <Border BorderThickness="1.5"
+                        BorderBrush="{DynamicResource PrimaryHueMidBrush}"
+                        ClipToBounds="True"
+                        Grid.Column="2">
+                    <TextBlock HorizontalAlignment="Center"
+                               VerticalAlignment="Center"
+                               x:Name="ActionKeyTextBlock"
+                               TextAlignment="Center"
+                               IsEnabled="False"
+                               Margin="5 0 5 0"
+                               Text="{Binding PropertyHotKey.ActionKey, Mode=TwoWay}" />
+                </Border>
+                <Border BorderThickness="1.5"
+                        BorderBrush="{DynamicResource PrimaryHueMidBrush}"
+                        ClipToBounds="True"
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="Center"
+                        Grid.Column="3">
+                    <Button Style="{StaticResource MaterialDesignFlatButton}"
+                            Command="{x:Static materialDesign:DialogHost.OpenDialogCommand}"
+                            VerticalAlignment="Center"
+                            HorizontalAlignment="Center"
+                            Margin="5 0 5 0">
+                    </Button>
+                </Border>
+            </Grid>
+        </materialDesign:ColorZone>
+        
+        <materialDesign:DialogHost.DialogContent>
+            <StackPanel Margin="8">
+                <TextBox Text="{Binding PropertyHotKey.FirstKeyModifier, Mode=OneTime}" />
+                <TextBox Text="{Binding PropertyHotKey.SecondKeyModifier, Mode=OneTime}" />
+                <TextBox Text="{Binding PropertyHotKey.ActionKey, Mode=OneTime}" />
+                <StackPanel Orientation="Horizontal"
+                            HorizontalAlignment="Right">
+                    <Button Style="{StaticResource MaterialDesignFlatButton}"
+                            IsDefault="True"
+                            Command="materialDesign:DialogHost.CloseDialogCommand">
+                        <Button.CommandParameter>
+                            <system:Boolean xmlns:system="clr-namespace:System;assembly=mscorlib">
+                                True
+                            </system:Boolean>
+                        </Button.CommandParameter>
+                        적용
+                    </Button>
+                    <Button Style="{StaticResource MaterialDesignFlatButton}"
+                            IsCancel="True"
+                            Command="materialDesign:DialogHost.CloseDialogCommand">
+                        <Button.CommandParameter>
+                            <system:Boolean xmlns:system="clr-namespace:System;assembly=mscorlib">
+                                False
+                            </system:Boolean>
+                        </Button.CommandParameter>
+                        취소
+                    </Button>
+                </StackPanel>
+            </StackPanel>
+        </materialDesign:DialogHost.DialogContent>
+        
+    </materialDesign:DialogHost>
+</UserControl>

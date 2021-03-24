@@ -25,7 +25,6 @@ namespace DAssist.UI
     public partial class DisplaySettings : UserControl
     {
         private RampViewModel DisplayRampViewModel;
-        private HotKeyViewModel MuteHotKeyViewModel;
 
         //public event EventHandler<HotKeyEventArgs> HotKeyPressed;
 
@@ -36,10 +35,6 @@ namespace DAssist.UI
             // Ramp 뷰모델
             DisplayRampViewModel = new RampViewModel();
             DisplayItemsListBox.DataContext = DisplayRampViewModel;
-
-            // HotKey 뷰모델
-            MuteHotKeyViewModel = new HotKeyViewModel();
-            MuteHotKeyGrid.DataContext = MuteHotKeyViewModel;
 
             // Button Event
             DisplayRefreshButton.Click += (s, e) => DisplayRampViewModel.RefreshScreens();
