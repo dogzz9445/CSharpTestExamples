@@ -4,6 +4,7 @@ using DAssist.Model;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -39,6 +40,27 @@ namespace DAssist.UI
             // Button Event
             DisplayRefreshButton.Click += (s, e) => DisplayRampViewModel.RefreshScreens();
 
+            MuteHotKeyDialogHost.HotKeyPressed += OnMuteHotKeyPressed;
+        }
+
+        private void OnMuteHotKeyPressed(object sender, HotKeyEventArgs e)
+        {
+            int pID = -1;
+            foreach (var process in Process.GetProcesses())
+            {
+                if (process.MainWindowTitle.Contains("VLC"))
+                {
+                    pID = process.Id;
+                }
+            }
+            if (pID != -1)
+            {
+                if (VolumeMixer.GetApplicationMute(pID) != null)
+                {
+                    bool muted = (bool)VolumeMixer.GetApplicationMute(pID);
+                    VolumeMixer.SetApplicationMute(pID, !muted);
+                };
+            }
         }
     }
 }

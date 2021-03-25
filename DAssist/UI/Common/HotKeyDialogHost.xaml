@@ -6,7 +6,8 @@
              xmlns:local="clr-namespace:DAssist.UI.Common"
              xmlns:converter="clr-namespace:DAssist.Converter"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-             mc:Ignorable="d">
+             mc:Ignorable="d"
+             Loaded="ControlLoaded">
     <UserControl.Resources>
         <converter:KeyModifierToStringConverter x:Key="KeyModifierToStringConverter" />
         <converter:KeysToStringConverter x:Key="KeysToStringConverter" />

@@ -16,6 +16,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Forms;
+using DAssist.Model;
 
 namespace DAssist.UI.Common
 {
@@ -42,7 +43,10 @@ namespace DAssist.UI.Common
             // HotKey 뷰모델
             HotKeyViewModel = new HotKeyViewModel();
             this.DataContext = HotKeyViewModel;
+        }
 
+        public void ControlLoaded(object sender, RoutedEventArgs e)
+        {
             RegisterHotKey();
         }
 
@@ -50,18 +54,19 @@ namespace DAssist.UI.Common
         {
             UnRegisterHotKey();
 
-            Keys key = (Keys)HotKeyViewModel.PropertyHotKey.ActionKey;
+            Keys key = HotKeyViewModel.PropertyHotKey.ActionKey;
             KeyModifier keyModifier = HotKeyViewModel.PropertyHotKey.GetKeyModifier;
             var (ret, id) = await HotKeyManager.RegisterHotKey(key, keyModifier);
             HotKeyRegisteredId = id;
-            HotKeyManager.HotKeyPressed += HotKeyPressed;
+            HotKeyManager.HotKeyPressed += OnHotKeyPressed;
         }
 
         public void UnRegisterHotKey()
         {
             if (HotKeyRegisteredId > -1)
             {
-                HotKeyManager.HotKeyPressed -= HotKeyPressed;
+                HotKeyManager.HotKeyPressed -= OnHotKeyPressed;
+                HotKeyManager.UnregisterHotKey(HotKeyRegisteredId);
                 HotKeyRegisteredId = -1;
             }
         }

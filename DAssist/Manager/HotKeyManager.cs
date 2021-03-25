@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DAssist.Model;
+using System;
 using System.Runtime.InteropServices;
 using System.Threading;
 using System.Threading.Tasks;
@@ -6,36 +7,6 @@ using System.Windows.Forms;
 
 namespace DAssist.Manager
 {
-    [Flags]
-    public enum KeyModifier
-    {
-        None = 0x0000,
-        Alt = 0x0001,
-        Ctrl = 0x0002,
-        Shift = 0x0004,
-        Win = 0x0008,
-        NoRepeat = 0x4000
-    }
-
-    public class HotKeyEventArgs : EventArgs
-    {
-        public HotKeyEventArgs(KeyModifier keyModifier, Keys key)
-        {
-            KeyModifier = keyModifier;
-            Key = key;
-        }
-
-        public HotKeyEventArgs(IntPtr hotKeyParam)
-        {
-            uint param = (uint)hotKeyParam.ToInt64();
-            Key = (Keys)((param & 0xffff0000) >> 16);
-            KeyModifier = (KeyModifier)(param & 0x0000ffff);
-        }
-
-        public KeyModifier KeyModifier { get; private set; }
-        public Keys Key { get; private set; }
-    }
-
     public static class HotKeyManager
     {
         [DllImport("user32.dll", SetLastError = true)]
