@@ -4,86 +4,168 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:DAssist.UI.Common"
+             xmlns:converter="clr-namespace:DAssist.Converter"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d">
+    <UserControl.Resources>
+        <converter:KeyModifierToStringConverter x:Key="KeyModifierToStringConverter" />
+        <converter:KeysToStringConverter x:Key="KeysToStringConverter" />
+    </UserControl.Resources>
+        
     <materialDesign:DialogHost Grid.Column="3"
                                DialogTheme="Inherit"
-                               HorizontalAlignment="Center"
+                               HorizontalContentAlignment="Stretch"
+                               HorizontalAlignment="Left"
                                VerticalAlignment="Center">
-        
-        <materialDesign:ColorZone>
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="*" />
-                    <RowDefinition Height="Auto" />
-                </Grid.RowDefinitions>
+        <Grid VerticalAlignment="Stretch"
+              HorizontalAlignment="Stretch">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto" 
+                                  MinWidth="100"/>
+                <ColumnDefinition Width="auto"
+                                  MinWidth="100" />
+                <ColumnDefinition Width="*"
+                                  MinWidth="400" />
+            </Grid.ColumnDefinitions>
+
+            <Grid Grid.Column="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto"
+                                      MinWidth="100" />
+                    <ColumnDefinition Width="auto"
+                                      MinWidth="50" />
+                </Grid.ColumnDefinitions>
+                <TextBlock Style="{StaticResource MaterialDesignSubtitle2TextBlock}"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center"
+                           FontSize="18"
+                           Grid.Column="0">
+                    설정 사용
+                </TextBlock>
+                <ToggleButton Content="X"
+                              Grid.Column="1"
+                              HorizontalAlignment="Left"
+                              Style="{StaticResource MaterialDesignActionAccentToggleButton}"
+                              IsChecked="True"
+                              ToolTip="MaterialDesignActionAccentToggleButton" />
+            </Grid>
+
+            <Grid Grid.Column="1">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="auto"
                                       MinWidth="80" />
                     <ColumnDefinition Width="auto"
+                                      MinWidth="30" />
+                    <ColumnDefinition Width="auto"
                                       MinWidth="80" />
+                    <ColumnDefinition Width="auto"
+                                      MinWidth="30" />
                     <ColumnDefinition Width="auto"
                                       MinWidth="80" />
                     <ColumnDefinition Width="auto" />
                 </Grid.ColumnDefinitions>
 
-                <Border BorderThickness="1.5"
+                <Border BorderThickness="0"
                         BorderBrush="{DynamicResource PrimaryHueMidBrush}"
                         ClipToBounds="True"
                         Grid.Column="0">
                     <TextBlock HorizontalAlignment="Center"
                                VerticalAlignment="Center"
                                x:Name="FirstKeyModifierTextBlock"
+                               Style="{StaticResource MaterialDesignSubtitle2TextBlock}"
                                TextAlignment="Center"
                                IsEnabled="False"
                                Margin="5 0 5 0"
-                               Text="{Binding PropertyHotKey.FirstKeyModifier, Mode=TwoWay}" />
+                               Text="{Binding PropertyHotKey.FirstKeyModifier, Mode=OneWay, Converter={StaticResource ResourceKey=KeyModifierToStringConverter}}" />
                 </Border>
-                <Border BorderThickness="1.5"
+                <Border BorderThickness="0"
                         BorderBrush="{DynamicResource PrimaryHueMidBrush}"
                         ClipToBounds="True"
                         Grid.Column="1">
-                    <TextBlock HorizontalAlignment="Center"
-                               VerticalAlignment="Center"
-                               x:Name="SecondKeyModifierTextBlock"
-                               TextAlignment="Center"
-                               IsEnabled="False"
-                               Margin="5 0 5 0"
-                               Text="{Binding PropertyHotKey.SecondKeyModifier, Mode=TwoWay}" />
+                    <materialDesign:PackIcon Kind="Plus"
+                                             Width="32"
+                                             Height="32"
+                                             HorizontalAlignment="Center" />
                 </Border>
-                <Border BorderThickness="1.5"
+                <Border BorderThickness="0"
                         BorderBrush="{DynamicResource PrimaryHueMidBrush}"
                         ClipToBounds="True"
                         Grid.Column="2">
                     <TextBlock HorizontalAlignment="Center"
                                VerticalAlignment="Center"
-                               x:Name="ActionKeyTextBlock"
+                               x:Name="SecondKeyModifierTextBlock"
+                               Style="{StaticResource MaterialDesignSubtitle2TextBlock}"
                                TextAlignment="Center"
                                IsEnabled="False"
                                Margin="5 0 5 0"
-                               Text="{Binding PropertyHotKey.ActionKey, Mode=TwoWay}" />
+                               Text="{Binding PropertyHotKey.SecondKeyModifier, Mode=OneWay, Converter={StaticResource ResourceKey=KeyModifierToStringConverter}}" />
                 </Border>
-                <Border BorderThickness="1.5"
+                <Border BorderThickness="0"
+                        BorderBrush="{DynamicResource PrimaryHueMidBrush}"
+                        ClipToBounds="True"
+                        Grid.Column="3">
+                    <materialDesign:PackIcon Kind="Plus"
+                                             Width="32"
+                                             Height="32"
+                                             HorizontalAlignment="Center" />
+                </Border>
+                <Border BorderThickness="0"
+                        BorderBrush="{DynamicResource PrimaryHueMidBrush}"
+                        ClipToBounds="True"
+                        Grid.Column="4">
+                    <TextBlock HorizontalAlignment="Center"
+                               VerticalAlignment="Center"
+                               x:Name="ActionKeyTextBlock"
+                               Style="{StaticResource MaterialDesignSubtitle2TextBlock}"
+                               TextAlignment="Center"
+                               IsEnabled="False"
+                               Margin="5 0 5 0"
+                               Text="{Binding PropertyHotKey.ActionKey, Mode=OneWay, Converter={StaticResource ResourceKey=KeysToStringConverter}}" />
+                </Border>
+                <Border BorderThickness="0"
                         BorderBrush="{DynamicResource PrimaryHueMidBrush}"
                         ClipToBounds="True"
                         VerticalAlignment="Center"
                         HorizontalAlignment="Center"
-                        Grid.Column="3">
-                    <Button Style="{StaticResource MaterialDesignFlatButton}"
-                            Command="{x:Static materialDesign:DialogHost.OpenDialogCommand}"
+                        Grid.Column="5">
+                    <Button Command="{x:Static materialDesign:DialogHost.OpenDialogCommand}"
                             VerticalAlignment="Center"
                             HorizontalAlignment="Center"
                             Margin="5 0 5 0">
+                        수정
                     </Button>
                 </Border>
             </Grid>
-        </materialDesign:ColorZone>
-        
+            
+            <Border BorderThickness="0"
+                    VerticalAlignment="Stretch"
+                    HorizontalAlignment="Stretch"
+                    Grid.Column="2">
+            </Border>
+
+        </Grid>
+
         <materialDesign:DialogHost.DialogContent>
-            <StackPanel Margin="8">
-                <TextBox Text="{Binding PropertyHotKey.FirstKeyModifier, Mode=OneTime}" />
-                <TextBox Text="{Binding PropertyHotKey.SecondKeyModifier, Mode=OneTime}" />
-                <TextBox Text="{Binding PropertyHotKey.ActionKey, Mode=OneTime}" />
+            <StackPanel Margin="8"
+                        Orientation="Horizontal">
+                <TextBox Text="{Binding PropertyHotKey.FirstKeyModifier, Mode=OneTime}"
+                         Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                         Width="70"
+                         FontSize="16"
+                         HorizontalContentAlignment="Center"
+                         materialDesign:HintAssist.Hint="조합키1" />
+                <TextBox Text="{Binding PropertyHotKey.SecondKeyModifier, Mode=OneTime}"
+                         Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                         Width="70"
+                         FontSize="16"
+                         HorizontalContentAlignment="Center"
+                         materialDesign:HintAssist.Hint="조합키2" />
+                <TextBox Text="{Binding PropertyHotKey.ActionKey, Mode=OneTime, Converter={StaticResource ResourceKey=KeysToStringConverter}}"
+                         Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                         Width="70"
+                         FontSize="16"
+                         HorizontalContentAlignment="Center"
+                         materialDesign:HintAssist.Hint="(A,B,C...)" />
                 <StackPanel Orientation="Horizontal"
                             HorizontalAlignment="Right">
                     <Button Style="{StaticResource MaterialDesignFlatButton}"
@@ -109,6 +191,6 @@
                 </StackPanel>
             </StackPanel>
         </materialDesign:DialogHost.DialogContent>
-        
+
     </materialDesign:DialogHost>
 </UserControl>

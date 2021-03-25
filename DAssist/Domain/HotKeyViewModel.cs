@@ -5,17 +5,18 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 using System.Windows.Input;
 
 namespace DAssist.Domain
 {
     public class HotKey : INotifyPropertyChanged
     {
-        private string _firstKeyModifier;
-        private string _secondKeyModifier;
-        private string _actionKey;
+        private KeyModifier _firstKeyModifier;
+        private KeyModifier _secondKeyModifier;
+        private Keys _actionKey;
 
-        public string FirstKeyModifier
+        public KeyModifier FirstKeyModifier
         {
             get => _firstKeyModifier;
             set
@@ -25,7 +26,7 @@ namespace DAssist.Domain
             }
         }
 
-        public string SecondKeyModifier
+        public KeyModifier SecondKeyModifier
         {
             get => _secondKeyModifier;
             set
@@ -35,7 +36,7 @@ namespace DAssist.Domain
             }
         }
 
-        public string ActionKey
+        public Keys ActionKey
         {
             get => _actionKey;
             set
@@ -45,11 +46,19 @@ namespace DAssist.Domain
             }
         }
 
+        public KeyModifier GetKeyModifier
+        {
+            get
+            {
+                return _firstKeyModifier & _secondKeyModifier;
+            }
+        }
+
         public HotKey()
         {
-            FirstKeyModifier = Enum.GetName(typeof(KeyModifier), KeyModifier.Ctrl);
-            SecondKeyModifier = Enum.GetName(typeof(KeyModifier), KeyModifier.Shift);
-            ActionKey = Enum.GetName(typeof(Key), Key.NumPad1);
+            FirstKeyModifier = KeyModifier.Ctrl;
+            SecondKeyModifier = KeyModifier.Shift;
+            ActionKey = Keys.NumPad1;
         }
 
         private void RaisePropertyChanged(object sender, PropertyChangedEventArgs args)
