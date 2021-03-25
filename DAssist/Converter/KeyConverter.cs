@@ -22,7 +22,8 @@ namespace DAssist.Converter
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            throw new NotImplementedException();
+            Keys key = (Keys)Enum.Parse(typeof(Keys), (string)value);
+            return key;
         }
     }
 
@@ -37,7 +38,8 @@ namespace DAssist.Converter
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            throw new NotImplementedException();
+            KeyModifier keyModifier = (KeyModifier)Enum.Parse(typeof(KeyModifier), (string)value);
+            return keyModifier;
         }
     }
 }

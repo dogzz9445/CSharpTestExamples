@@ -79,7 +79,7 @@
                                TextAlignment="Center"
                                IsEnabled="False"
                                Margin="5 0 5 0"
-                               Text="{Binding PropertyHotKey.FirstKeyModifier, Mode=OneWay, Converter={StaticResource ResourceKey=KeyModifierToStringConverter}}" />
+                               Text="{Binding PropertyHotKey.FirstKeyModifier, Mode=TwoWay, Converter={StaticResource ResourceKey=KeyModifierToStringConverter}}" />
                 </Border>
                 <Border BorderThickness="0"
                         BorderBrush="{DynamicResource PrimaryHueMidBrush}"
@@ -101,7 +101,7 @@
                                TextAlignment="Center"
                                IsEnabled="False"
                                Margin="5 0 5 0"
-                               Text="{Binding PropertyHotKey.SecondKeyModifier, Mode=OneWay, Converter={StaticResource ResourceKey=KeyModifierToStringConverter}}" />
+                               Text="{Binding PropertyHotKey.SecondKeyModifier, Mode=TwoWay, Converter={StaticResource ResourceKey=KeyModifierToStringConverter}}" />
                 </Border>
                 <Border BorderThickness="0"
                         BorderBrush="{DynamicResource PrimaryHueMidBrush}"
@@ -123,7 +123,7 @@
                                TextAlignment="Center"
                                IsEnabled="False"
                                Margin="5 0 5 0"
-                               Text="{Binding PropertyHotKey.ActionKey, Mode=OneWay, Converter={StaticResource ResourceKey=KeysToStringConverter}}" />
+                               Text="{Binding PropertyHotKey.ActionKey, Mode=TwoWay, Converter={StaticResource ResourceKey=KeysToStringConverter}}" />
                 </Border>
                 <Border BorderThickness="0"
                         BorderBrush="{DynamicResource PrimaryHueMidBrush}"
@@ -151,29 +151,35 @@
         <materialDesign:DialogHost.DialogContent>
             <StackPanel Margin="8"
                         Orientation="Horizontal">
-                <TextBox Text="{Binding PropertyHotKey.FirstKeyModifier, Mode=OneWay, Converter={StaticResource ResourceKey=KeyModifierToStringConverter}}"
+                <TextBox Text="{Binding PropertyHotKey.FirstKeyModifier, Mode=TwoWay, Converter={StaticResource ResourceKey=KeyModifierToStringConverter}}"
                          Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                          Width="70"
                          FontSize="16"
                          x:Name="FirstKeyModifierTextBox"
                          HorizontalContentAlignment="Center"
-                         KeyDown="OnKeyDown"
+                         KeyDown="OnKeyModifierDown"
+                         InputMethod.IsInputMethodEnabled="False"
+                         IsReadOnly="True"
                          materialDesign:HintAssist.Hint="조합키1" />
-                <TextBox Text="{Binding PropertyHotKey.SecondKeyModifier, Mode=OneWay, Converter={StaticResource ResourceKey=KeyModifierToStringConverter}}"
+                <TextBox Text="{Binding PropertyHotKey.SecondKeyModifier, Mode=TwoWay, Converter={StaticResource ResourceKey=KeyModifierToStringConverter}}"
                          Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                          Width="70"
                          FontSize="16"
                          x:Name="SecondKeyModifierTextBox"
                          HorizontalContentAlignment="Center"
-                         KeyDown="OnKeyDown"
+                         KeyDown="OnKeyModifierDown"
+                         InputMethod.IsInputMethodEnabled="False"
+                         IsReadOnly="True"
                          materialDesign:HintAssist.Hint="조합키2" />
-                <TextBox Text="{Binding PropertyHotKey.ActionKey, Mode=OneWay, Converter={StaticResource ResourceKey=KeysToStringConverter}}"
+                <TextBox Text="{Binding PropertyHotKey.ActionKey, Mode=TwoWay, Converter={StaticResource ResourceKey=KeysToStringConverter}}"
                          Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                          Width="70"
                          FontSize="16"
                          x:Name="ActionKeyTextBox"
                          HorizontalContentAlignment="Center"
                          KeyDown="OnKeyDown"
+                         InputMethod.IsInputMethodEnabled="False"
+                         IsReadOnly="True"
                          materialDesign:HintAssist.Hint="(A,B,C...)" />
                 <StackPanel Orientation="Horizontal"
                             HorizontalAlignment="Right">

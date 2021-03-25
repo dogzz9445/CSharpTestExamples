@@ -75,23 +75,21 @@ namespace DAssist.UI.Common
 
         private void OnDialogHostOpened(object sender, DialogOpenedEventArgs eventArgs)
         {
+            // FIXME:
+            // 제대로 동작안함
             PreviousHotKey = HotKeyViewModel.PropertyHotKey;
-
-            HotKeyViewModel.PropertyChanged -= (s, e) => RegisterHotKey();
-            UnRegisterHotKey();
         }
 
         private void OnDialogHostClosing(object sender, DialogClosingEventArgs eventArgs)
         {
+            // FIXME:
+            // 제대로 동작안함
             if (!Equals(eventArgs.Parameter, true))
             {
-                if (PreviousHotKey != null)
-                {
-                    HotKeyViewModel.PropertyHotKey = PreviousHotKey;
-                }
+                HotKeyViewModel.PropertyHotKey.ActionKey = PreviousHotKey.ActionKey;
+                HotKeyViewModel.PropertyHotKey.FirstKeyModifier = PreviousHotKey.FirstKeyModifier;
+                HotKeyViewModel.PropertyHotKey.SecondKeyModifier = PreviousHotKey.SecondKeyModifier;
             }
-
-            HotKeyViewModel.PropertyChanged += (s, e) => RegisterHotKey();
         }
 
         private void OnHotKeyPressed(object sender, HotKeyEventArgs eventArgs)
@@ -103,9 +101,24 @@ namespace DAssist.UI.Common
             }
         }
 
+        private void OnKeyModifierDown(object sender, System.Windows.Input.KeyEventArgs eventArgs)
+        {
+            // FIXME:
+            // KeyModifier만 걸러내는 작업
+
+            //Keys key = (Keys)KeyInterop.VirtualKeyFromKey(eventArgs.Key);
+            //(sender as System.Windows.Controls.TextBox).Text = key.ToString();
+        }
+
         private void OnKeyDown(object sender, System.Windows.Input.KeyEventArgs eventArgs)
         {
-            (sender as System.Windows.Controls.TextBox).Text = eventArgs.Key.ToString();
+            // FIXME:
+            // 가능한 0~9까지나 다른 글자도 받을수 있게
+            if (eventArgs.Key >= Key.A && eventArgs.Key <= Key.Z)
+            {
+                Keys key = (Keys)KeyInterop.VirtualKeyFromKey(eventArgs.Key);
+                (sender as System.Windows.Controls.TextBox).Text = key.ToString();
+            }
         }
     }
 }
