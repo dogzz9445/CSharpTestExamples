@@ -17,6 +17,8 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Forms;
 using DAssist.Model;
+using MaterialDesignThemes.Wpf;
+using System.ComponentModel;
 
 namespace DAssist.UI.Common
 {
@@ -26,7 +28,9 @@ namespace DAssist.UI.Common
     public partial class HotKeyDialogHost : System.Windows.Controls.UserControl
     {
         private HotKeyViewModel HotKeyViewModel;
+
         private int HotKeyRegisteredId;
+        private HotKey PreviousHotKey;
 
         public event EventHandler<HotKeyEventArgs> HotKeyPressed;
 
@@ -43,11 +47,9 @@ namespace DAssist.UI.Common
             // HotKey 뷰모델
             HotKeyViewModel = new HotKeyViewModel();
             this.DataContext = HotKeyViewModel;
-        }
 
-        public void ControlLoaded(object sender, RoutedEventArgs e)
-        {
-            RegisterHotKey();
+            Loaded += (s, e) => RegisterHotKey();
+            HotKeyViewModel.PropertyChanged += (s, e) => RegisterHotKey();
         }
 
         public async void RegisterHotKey()
@@ -71,13 +73,39 @@ namespace DAssist.UI.Common
             }
         }
 
-        public void OnHotKeyPressed(object sender, HotKeyEventArgs eventArgs)
+        private void OnDialogHostOpened(object sender, DialogOpenedEventArgs eventArgs)
+        {
+            PreviousHotKey = HotKeyViewModel.PropertyHotKey;
+
+            HotKeyViewModel.PropertyChanged -= (s, e) => RegisterHotKey();
+            UnRegisterHotKey();
+        }
+
+        private void OnDialogHostClosing(object sender, DialogClosingEventArgs eventArgs)
+        {
+            if (!Equals(eventArgs.Parameter, true))
+            {
+                if (PreviousHotKey != null)
+                {
+                    HotKeyViewModel.PropertyHotKey = PreviousHotKey;
+                }
+            }
+
+            HotKeyViewModel.PropertyChanged += (s, e) => RegisterHotKey();
+        }
+
+        private void OnHotKeyPressed(object sender, HotKeyEventArgs eventArgs)
         {
             HotKey hotKey = HotKeyViewModel.PropertyHotKey;
             if ((eventArgs.Key == hotKey.ActionKey) && (eventArgs.KeyModifier == hotKey.GetKeyModifier))
             {
                 HotKeyPressed?.Invoke(this, eventArgs);
             }
+        }
+
+        private void OnKeyDown(object sender, System.Windows.Input.KeyEventArgs eventArgs)
+        {
+            (sender as System.Windows.Controls.TextBox).Text = eventArgs.Key.ToString();
         }
     }
 }

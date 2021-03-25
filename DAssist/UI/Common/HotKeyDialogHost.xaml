@@ -5,9 +5,9 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:DAssist.UI.Common"
              xmlns:converter="clr-namespace:DAssist.Converter"
+             xmlns:model="clr-namespace:DAssist.Model"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-             mc:Ignorable="d"
-             Loaded="ControlLoaded">
+             mc:Ignorable="d">
     <UserControl.Resources>
         <converter:KeyModifierToStringConverter x:Key="KeyModifierToStringConverter" />
         <converter:KeysToStringConverter x:Key="KeysToStringConverter" />
@@ -17,7 +17,9 @@
                                DialogTheme="Inherit"
                                HorizontalContentAlignment="Stretch"
                                HorizontalAlignment="Left"
-                               VerticalAlignment="Center">
+                               VerticalAlignment="Center"
+                               DialogOpened="OnDialogHostOpened"
+                               DialogClosing="OnDialogHostClosing">
         <Grid VerticalAlignment="Stretch"
               HorizontalAlignment="Stretch">
             <Grid.ColumnDefinitions>
@@ -149,23 +151,29 @@
         <materialDesign:DialogHost.DialogContent>
             <StackPanel Margin="8"
                         Orientation="Horizontal">
-                <TextBox Text="{Binding PropertyHotKey.FirstKeyModifier, Mode=OneTime}"
+                <TextBox Text="{Binding PropertyHotKey.FirstKeyModifier, Mode=OneWay, Converter={StaticResource ResourceKey=KeyModifierToStringConverter}}"
                          Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                          Width="70"
                          FontSize="16"
+                         x:Name="FirstKeyModifierTextBox"
                          HorizontalContentAlignment="Center"
+                         KeyDown="OnKeyDown"
                          materialDesign:HintAssist.Hint="조합키1" />
-                <TextBox Text="{Binding PropertyHotKey.SecondKeyModifier, Mode=OneTime}"
+                <TextBox Text="{Binding PropertyHotKey.SecondKeyModifier, Mode=OneWay, Converter={StaticResource ResourceKey=KeyModifierToStringConverter}}"
                          Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                          Width="70"
                          FontSize="16"
+                         x:Name="SecondKeyModifierTextBox"
                          HorizontalContentAlignment="Center"
+                         KeyDown="OnKeyDown"
                          materialDesign:HintAssist.Hint="조합키2" />
-                <TextBox Text="{Binding PropertyHotKey.ActionKey, Mode=OneTime, Converter={StaticResource ResourceKey=KeysToStringConverter}}"
+                <TextBox Text="{Binding PropertyHotKey.ActionKey, Mode=OneWay, Converter={StaticResource ResourceKey=KeysToStringConverter}}"
                          Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                          Width="70"
                          FontSize="16"
+                         x:Name="ActionKeyTextBox"
                          HorizontalContentAlignment="Center"
+                         KeyDown="OnKeyDown"
                          materialDesign:HintAssist.Hint="(A,B,C...)" />
                 <StackPanel Orientation="Horizontal"
                             HorizontalAlignment="Right">
